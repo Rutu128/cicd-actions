@@ -9,8 +9,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Get Code"
+        uses: actions/checkout@v4
+        # run: |
+        #     echo "Get Code"
+        #     echo "${{toJson(github)}}"
+        #     git clone https://github.com/${{github.repository}}.git
+
+      - name: "Set up Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+
+      - name: "Install Dependencies"
         run: |
-            echo "Get Code"
-            echo "${{toJson(github)}}"
-            git clone https://github.com/${{github.repository}}.git
-            
+          echo "Install Dependencies"
+          npm ci
+
+      - name: "Run Tests"
+        run: |
+          echo "Run Tests"
+          npm test
+
+    #   - name: "Build"
+    #     run: |
+    #       echo "Build"
+    #       npm run build
+
+    #   - name: "Deploy"
+    #     run: |
+    #       echo "Deploy"
+    #       npm run deploy
